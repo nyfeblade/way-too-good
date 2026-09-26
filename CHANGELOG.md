@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.1 (2026-09-26)
+- way-too-good names the build ledger `.build-ledger.md`, the same path good-build and the gate script use.
+- README: why the skills exist, the Standard default, the good-idea → good-build handoff, and how to run the gate script.
+
 ## 1.1.0 (2026-09-26)
 - **Scale:** if unsure, pick Standard (good-build: Medium) and move up only when a gate fails or a real unknown appears. Full needs the user's explicit OK, recorded in the decision log.
 - **Handoff:** good-idea ends by writing a Handoff section in the decision log that names the spec, traceability map, Phase 0 findings, mockup and plan by path; good-build starts from it.

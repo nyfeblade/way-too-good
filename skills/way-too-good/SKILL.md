@@ -25,7 +25,7 @@ The skill names artifacts by role, not by path. At the start, pick concrete loca
 | **Spec** | the numbered requirements: the authority every later stage argues from | `docs/spec/` |
 | **Traceability map** | UI ↔ requirement ↔ phase | alongside the spec |
 | **Plans** | one plan per phase | `docs/plans/` |
-| **Build ledger** | per-plan progress, rulings, review results (the recovery map) | a git-ignored working folder |
+| **Build ledger** | per-plan progress, rulings, review results (the recovery map) | `.build-ledger.md` (git-ignored) |
 | **Gate check** | a script or checklist that confirms each stage's artifact exists | this skill's `check-gates.sh`, or your repo's equivalent |
 
 Use your toolchain's equivalents for planning, TDD and agent orchestration: skills, subagents, worktrees and workflow runners where available, or plain sessions and branches where not.
