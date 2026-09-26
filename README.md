@@ -25,8 +25,6 @@ Why they exist: agent-built software usually fails in the same few ways. The age
 
 or copy the folders into `~/.claude/skills/` (for you) or `.claude/skills/` (for one project).
 
-(The marketplace commands need the repo to be public. While it's private, copy the folders instead.)
-
 **Claude apps (claude.ai / desktop):** zip one skill's folder and upload it under Settings → Capabilities → Skills.
 
 The skills name features some tools have and others don't (helper agents, parallel workspaces, choosing a model). Where a tool lacks one, the skill says what to do instead.
