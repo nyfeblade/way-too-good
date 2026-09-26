@@ -1,0 +1,11 @@
+{
+  "name": "way-too-good",
+  "owner": { "name": "nyfeblade" },
+  "plugins": [
+    {
+      "name": "way-too-good",
+      "source": "./",
+      "description": "The full pipeline (way-too-good), planning only (good-idea), and building from a plan (good-build)."
+    }
+  ]
+}

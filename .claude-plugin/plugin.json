@@ -1,0 +1,8 @@
+{
+  "name": "way-too-good",
+  "description": "Three skills for building seriously good software with Claude Code: the full pipeline (way-too-good), planning only (good-idea), and building from a plan (good-build).",
+  "version": "1.0.0",
+  "author": { "name": "nyfeblade" },
+  "license": "MIT",
+  "keywords": ["planning", "spec", "tdd", "subagents", "code-review", "workflow"]
+}
