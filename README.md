@@ -23,6 +23,8 @@ Three agent skills for building software that is seriously good, not just finish
 
 or copy the folders into `~/.claude/skills/` (for you) or `.claude/skills/` (for one project).
 
+(The marketplace commands need the repo to be public. While it's private, copy the folders instead.)
+
 **Claude apps (claude.ai / desktop):** zip one skill's folder and upload it under Settings → Capabilities → Skills.
 
 The skills name features some tools have and others don't (helper agents, parallel workspaces, choosing a model). Where a tool lacks one, the skill says what to do instead.
@@ -39,6 +41,14 @@ All three share a few rules that don't bend with project size:
 `way-too-good` also ships `check-gates.sh`, which reports which stage artifacts exist for a project so you can see where a build stands.
 
 The lessons in these skills come from real builds. They are kept general: no project names, no stack assumptions.
+
+## Versions
+
+These skills are a working procedure, so a version bump is a release. The version lives in [`.claude-plugin/plugin.json`](.claude-plugin/plugin.json) and every change is in [CHANGELOG.md](CHANGELOG.md):
+
+- **Major**: an invariant or a stage gate changes (what must be proven, when, or by whom).
+- **Minor**: a new stage option, section or lesson.
+- **Patch**: wording and fixes that don't change what the skills require.
 
 ## Licence
 

@@ -34,6 +34,8 @@ Recommend a scale in one sentence; the user has the final say. Record it.
 | **Standard** | a meaningful product, moderate uncertainty, known platform |
 | **Full** | ambitious or novel, cloning or reverse-engineering, unknown platform behaviour, high cost of rework |
 
+**If unsure, pick Standard**, and move up only when a gate fails or a real unknown appears. **Full needs the user's explicit OK**, recorded in the decision log; never assume it.
+
 Move up if uncertainty appears midway. Never move down past a gate that has already failed.
 
 ## The stages
@@ -53,7 +55,21 @@ Move up if uncertainty appears midway. Never move down past a gate that has alre
 
 ★ = invariant: the same gate at every scale.
 
-**Done** = the user has approved the spec and mockup, traceability has no MISSING rows, and every unknown has a PASS or a fallback. Hand off to a build process (e.g. `/way-too-good` from Stage 10, or writing an implementation plan).
+**Done** = the user has approved the spec and mockup, traceability has no MISSING rows, every unknown has a PASS or a fallback, and the decision log ends with a Handoff section (below). Hand off to a build process (e.g. `/way-too-good` from Stage 10, or writing an implementation plan).
+
+## The handoff (what good-idea leaves for good-build)
+good-idea finishes by writing a **Handoff** section at the end of the decision log that lists these, by path:
+
+| File | Holds |
+|---|---|
+| `docs/decisions.md` | goal, scale, constraints, every decision; ends with the Handoff section |
+| `docs/spec/` | the spec, including § Original designs |
+| `docs/spec/*trace*.md` | the traceability map (0 MISSING) |
+| `docs/spec/phase0-findings.md` | each unknown: PASS, or its fallback |
+| the approved mockup | its path or link, recorded in the decision log |
+| `docs/plans/*.md` | only if a plan was written; otherwise the build writes one first |
+
+Other locations are fine; the Handoff section is what says where they are.
 
 ## Start
 1. Create one todo per stage (0–9), with the titles verbatim.

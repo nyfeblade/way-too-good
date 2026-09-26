@@ -41,6 +41,8 @@ Assess the project and **recommend** a scale with one sentence of reasoning. The
 
 > e.g. "This looks like **Full**: it reproduces an existing product and depends on unverified platform behavior. **Standard** works if behavioral fidelity doesn't matter."
 
+**If unsure, pick Standard**, and move up only when a gate fails or a real unknown appears. **Full needs the user's explicit OK**, recorded in the decision log; never assume it.
+
 Move up a scale if uncertainty appears midway. Never move down past a gate that has already failed.
 
 ## The pipeline

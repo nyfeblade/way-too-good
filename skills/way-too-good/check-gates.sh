@@ -1,25 +1,26 @@
 #!/usr/bin/env bash
 # Gate checker for the way-too-good pipeline: reports PASS/MISSING per stage artifact.
 # Usage: check-gates.sh <project-root> <topic>
-# Every location is configurable; set the ones your project uses (defaults shown):
+# Every location is configurable. The defaults are plain examples, the same paths the skills suggest;
+# set the ones your project actually uses:
 #   WTG_DECISIONS   decision log                 docs/decisions.md
 #   WTG_RESEARCH    research folder              research/<topic>
 #   WTG_SPEC        spec file glob               docs/spec/*spec*.md
-#   WTG_TRACE       traceability map             docs/spec/ui-engine-traceability.md
+#   WTG_TRACE       traceability map             docs/spec/*trace*.md
 #   WTG_FINDINGS    Phase 0 findings             docs/spec/phase0-findings.md
-#   WTG_QA          QA harness glob              .claude/skills/*fuzz*/SKILL.md
+#   WTG_QA          QA checklist or harness      docs/qa*.md
 #   WTG_PLANS       plan file glob               docs/plans/*.md
-#   WTG_LEDGER      build ledger glob            .superpowers/sdd/*/progress.md
+#   WTG_LEDGER      build ledger glob            .build-ledger.md
 root="${1:?project root}"; topic="${2:?topic (names the research folder)}"
 cd "$root" || exit 1
 DEC="${WTG_DECISIONS:-docs/decisions.md}"
 RES="${WTG_RESEARCH:-research/$topic}"
 SPEC="${WTG_SPEC:-docs/spec/*spec*.md}"
-TRACE="${WTG_TRACE:-docs/spec/ui-engine-traceability.md}"
+TRACE="${WTG_TRACE:-docs/spec/*trace*.md}"
 FIND="${WTG_FINDINGS:-docs/spec/phase0-findings.md}"
-QA="${WTG_QA:-.claude/skills/*fuzz*/SKILL.md}"
+QA="${WTG_QA:-docs/qa*.md}"
 PLANS="${WTG_PLANS:-docs/plans/*.md}"
-LEDGER="${WTG_LEDGER:-.superpowers/sdd/*/progress.md}"
+LEDGER="${WTG_LEDGER:-.build-ledger.md}"
 echo "(Fast/Standard depth: MISSING rows for stages 2-8 can be expected; check the scale in $DEC)"
 has() { compgen -G "$1" >/dev/null; }
 row() { printf "%-4s %-28s %s\n" "$1" "$2" "$3"; }
@@ -32,7 +33,7 @@ check 5  "spec"                   "$SPEC"
 if has "$SPEC" && grep -qiE 'original design' $SPEC; then row 6 "gap engineering" PASS; else row 6 "gap engineering" "MISSING  (Original designs section in the spec)"; fi
 row 7 "mockup (user approval)" "MANUAL   (confirm the user approved the design)"
 if has "$TRACE"; then
-  m=$(grep -cE '\| *MISSING *\| *$' "$TRACE"); [ "$m" = 0 ] && row 8 "traceability" PASS || row 8 "traceability" "FAIL     ($m MISSING rows)"
+  m=$(cat $TRACE | grep -cE '\| *MISSING *\| *$'); [ "$m" = 0 ] && row 8 "traceability" PASS || row 8 "traceability" "FAIL     ($m MISSING rows)"
 else row 8 "traceability" "MISSING  ($TRACE)"; fi
 check 9  "phase 0 findings"       "$FIND"
 check 10 "QA harness"             "$QA"

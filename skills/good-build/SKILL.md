@@ -14,15 +14,15 @@ Take a build that is already planned and implement it to done: every requirement
 3. **The shipped thing passes QA** the way a user runs it, not only the unit suite.
 
 ## Stage 0: intake (before any code)
-1. **Find the authority.** Locate the spec and the plan. The spec wins over the plan; the plan wins over your preference. If there is no spec or plan, stop and say so, and offer `/good-idea` or a short written plan for approval.
+1. **Find the authority.** Start from the Handoff section at the end of the decision log if there is one (good-idea writes it: decisions, spec, traceability map, Phase 0 findings, mockup, plan). Otherwise locate the spec and the plan yourself. The spec wins over the plan; the plan wins over your preference. If there is no spec or plan, stop and say so, and offer `/good-idea` or a short written plan for approval.
 2. **Read the plan once, fully.** Note global constraints (versions, naming, copy rules, platform limits, "never" rules) and copy them verbatim into the ledger.
 3. **Pre-flight conflict scan.** Build a table with one row per pair of tasks that share a file or interface (what one produces vs what the other consumes) and one row per task (does its own text agree with itself). Rule on every conflict before Task 1 and record each ruling.
-4. **Pick the size**, which sets how much ceremony each task gets. It never removes the invariants.
+4. **Pick the size**, which sets how much ceremony each task gets. It never removes the invariants. If unsure, pick Medium; go Large only when the plan really has independent tracks.
    - **Small** (1–5 tasks, one area): implement inline, test first, one review at the end.
    - **Medium**: one fresh helper agent per task where your tool can run them (or a clean pass per task where it can't), a review after each task, one final review.
    - **Large** (many tasks, independent tracks): run parallel tracks in isolated workspaces (e.g. git worktrees), with a review per track and one merge step. Without parallel agents, run the tracks one after another.
 5. **Check the machine.** Free disk, memory pressure, and what else is running. Cap heavy parallel agents to what the machine can carry.
-6. **Create the ledger** (a git-ignored file): the plan path, global constraints, the conflict table, rulings, and then one line per task as it completes. After any context loss, trust the ledger and `git log` over memory, and never redo a task the ledger marks complete.
+6. **Create the ledger** (a git-ignored file, e.g. `.build-ledger.md`): the plan path, global constraints, the conflict table, rulings, and then one line per task as it completes. After any context loss, trust the ledger and `git log` over memory, and never redo a task the ledger marks complete.
 
 ## Stage 1: QA tooling first
 Before app code, decide how "works" will be proven end to end: a checklist, a crawler or journey runner for UI, an integration harness against a fake of each external service, or a benchmark. At Large size, test the harness against deliberately planted bugs; a harness that has never caught anything proves nothing.
