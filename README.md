@@ -6,11 +6,11 @@ Why they exist: agent-built software usually fails in the same few ways. The age
 
 | Skill | Use it when | What you get |
 |---|---|---|
-| **`/way-too-good`** | You have an idea (or a product to clone) and want it taken all the way to a working, tested build. | The full pipeline: discover → research → spec → mockup → prove the unknowns → QA tooling → plan → build → hand off. |
-| **`/good-idea`** | You want the thinking done properly, and something else (you, another tool, another team) will write the code. | An approved spec and mockup, a traceability map, and every risky unknown proven or given a fallback. Stops before code. |
-| **`/good-build`** | You already have a spec or plan and want it implemented completely and correctly. | Every task built test-first, reviewed, merged and checked the way a user would run it. No planning, no drift, no false "done". |
+| [**`/way-too-good`**](skills/way-too-good/SKILL.md) | You have an idea (or a product to clone) and want it taken all the way to a working, tested build. | The full pipeline: discover → research → spec → mockup → prove the unknowns → QA tooling → plan → build → hand off. |
+| [**`/good-idea`**](skills/good-idea/SKILL.md) | You want the thinking done properly, and something else (you, another tool, another team) will write the code. | An approved spec and mockup, a traceability map, and every risky unknown proven or given a fallback. Stops before code. |
+| [**`/good-build`**](skills/good-build/SKILL.md) | You already have a spec or plan and want it implemented completely and correctly. | Every task built test-first, reviewed, merged and checked the way a user would run it. No planning, no drift, no false "done". |
 
-`good-idea` + `good-build` together cover the same ground as `way-too-good`, split at the point where a plan exists. good-idea ends by writing a **Handoff** section in the decision log that names every file by path (decisions, spec, traceability map, Phase 0 findings, mockup, plan), and good-build starts from it, so the two can run in different tools or sessions.
+[`good-idea`](skills/good-idea/SKILL.md) + [`good-build`](skills/good-build/SKILL.md) together cover the same ground as [`way-too-good`](skills/way-too-good/SKILL.md), split at the point where a plan exists. good-idea ends by writing a **Handoff** section in the decision log that names every file by path (decisions, spec, traceability map, Phase 0 findings, mockup, plan), and good-build starts from it, so the two can run in different tools or sessions.
 
 ## Install
 
@@ -41,7 +41,7 @@ All three share a few rules that don't bend with project size:
 - **Every stage leaves an artifact on disk** (a decision log, research notes, a spec, plans, a build ledger), so work survives lost context and can be resumed instead of redone.
 - **Security-relevant work gets its own review** on the most capable model, probed with hostile inputs, and denylists are replaced with fail-closed designs when bypasses keep turning up.
 
-`way-too-good` also ships `check-gates.sh`, which reports which stage artifacts exist for a project so you can see where a build stands:
+[`way-too-good`](skills/way-too-good/SKILL.md) also ships [`check-gates.sh`](skills/way-too-good/check-gates.sh), which reports which stage artifacts exist for a project so you can see where a build stands:
 
 ```
 ./skills/way-too-good/check-gates.sh <project-folder> <topic>
