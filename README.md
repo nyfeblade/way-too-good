@@ -1,6 +1,6 @@
 # way-too-good
 
-Three [Claude Code](https://claude.com/claude-code) skills for building software that is seriously good, not just finished.
+Three agent skills for building software that is seriously good, not just finished. They use the open [Agent Skills](https://agentskills.io) format (a folder with a `SKILL.md`), so they work in any tool that loads skills, and they don't depend on any other skill or plugin.
 
 | Skill | Use it when | What you get |
 |---|---|---|
@@ -12,14 +12,20 @@ Three [Claude Code](https://claude.com/claude-code) skills for building software
 
 ## Install
 
-In Claude Code:
+**Any tool that supports skills:** copy the folders in [`skills/`](skills) into that tool's skills folder. Each folder is self-contained.
+
+**Claude Code** (as a plugin, all three at once):
 
 ```
 /plugin marketplace add nyfeblade/way-too-good
 /plugin install way-too-good@way-too-good
 ```
 
-Or copy any of the folders in [`skills/`](skills) into `~/.claude/skills/`.
+or copy the folders into `~/.claude/skills/` (for you) or `.claude/skills/` (for one project).
+
+**Claude apps (claude.ai / desktop):** zip one skill's folder and upload it under Settings → Capabilities → Skills.
+
+The skills name features some tools have and others don't (helper agents, parallel workspaces, choosing a model). Where a tool lacks one, the skill says what to do instead.
 
 ## How they work
 

@@ -1,6 +1,6 @@
 ---
 name: way-too-good
-description: Use when the user invokes /way-too-good, wants help deciding what to build, or wants an app or a faithful clone of an existing product researched, specced, mocked up, proven, planned and built end to end, especially when uncertainty, unknown internals, or cost of rework is high.
+description: Use when the user asks for way-too-good (e.g. /way-too-good), wants help deciding what to build, or wants an app or a faithful clone of an existing product researched, specced, mocked up, proven, planned and built end to end, especially when uncertainty, unknown internals, or cost of rework is high.
 ---
 
 # Way Too Good

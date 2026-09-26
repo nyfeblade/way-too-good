@@ -1,6 +1,7 @@
 {
   "name": "way-too-good",
   "owner": { "name": "nyfeblade" },
+  "metadata": { "description": "Skills for building seriously good software: the full pipeline, planning only, and building from a plan." },
   "plugins": [
     {
       "name": "way-too-good",

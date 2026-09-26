@@ -1,6 +1,6 @@
 ---
 name: good-idea
-description: Use when the user invokes /good-idea, wants help deciding what to build, or wants an idea or a product to clone researched, specced, mocked up and proven before any building starts, especially when uncertainty, unknown internals, or cost of rework is high.
+description: Use when the user asks for good-idea (e.g. /good-idea), wants help deciding what to build, or wants an idea or a product to clone researched, specced, mocked up and proven before any building starts, especially when uncertainty, unknown internals, or cost of rework is high.
 ---
 
 # Good Idea
