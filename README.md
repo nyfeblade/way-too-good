@@ -37,7 +37,7 @@ All three share a few rules that don't bend with project size:
 
 - **Depth may shrink, proof may not.** Each skill scales its ceremony to the job (Fast / Standard / Full, or Small / Medium / Large), but the invariants stay: unknowns are proven in the real environment before anything is built on them, every behaviour change has a test that was seen failing first, and the finished thing passes QA the way a user runs it.
 - **Nothing is done on an agent's word.** Tests, counts and at least one concrete claim are re-checked after every task and every merge.
-- **Right-sized by default.** When unsure, the skills pick Standard and move up only when a gate fails; the heaviest depth, Full, needs your explicit OK.
+- **Right-sized by default.** When unsure, the skills pick the middle size (Standard for way-too-good and good-idea, Medium for good-build) and move up only when a gate fails; the heaviest depth, Full, needs your explicit OK.
 - **Every stage leaves an artifact on disk** (a decision log, research notes, a spec, plans, a build ledger), so work survives lost context and can be resumed instead of redone.
 - **Security-relevant work gets its own review** on the most capable model, probed with hostile inputs, and denylists are replaced with fail-closed designs when bypasses keep turning up.
 
