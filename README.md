@@ -16,12 +16,19 @@ Why they exist: agent-built software usually fails in the same few ways. The age
 
 **Any tool that supports skills:** copy the folders in [`skills/`](skills) into that tool's skills folder. Each folder is self-contained.
 
-**Claude Code** (as a plugin, all three at once):
+**Claude Code** (as a plugin, all three at once). Run these one at a time:
 
-```
-/plugin marketplace add nyfeblade/way-too-good
-/plugin install way-too-good@way-too-good
-```
+1. Add the marketplace:
+
+   ```
+   /plugin marketplace add nyfeblade/way-too-good
+   ```
+
+2. Then install the plugin:
+
+   ```
+   /plugin install way-too-good@way-too-good
+   ```
 
 or copy the folders into `~/.claude/skills/` (for you) or `.claude/skills/` (for one project).
 
