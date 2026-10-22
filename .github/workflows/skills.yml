@@ -1,0 +1,13 @@
+name: skills
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate skills and generated harness files
+        run: python3 scripts/wtg_skills.py check

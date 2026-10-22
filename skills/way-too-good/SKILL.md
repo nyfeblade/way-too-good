@@ -1,6 +1,10 @@
 ---
 name: way-too-good
 description: Use when the user asks for way-too-good (e.g. /way-too-good), wants help deciding what to build, or wants an app or a faithful clone of an existing product researched, specced, mocked up, proven, planned and built end to end, especially when uncertainty, unknown internals, or cost of rework is high.
+license: MIT
+metadata:
+  author: nyfeblade
+  version: "1.2.0"
 ---
 
 # Way Too Good
@@ -28,7 +32,21 @@ The skill names artifacts by role, not by path. At the start, pick concrete loca
 | **Build ledger** | per-plan progress, rulings, review results (the recovery map) | `.build-ledger.md` (git-ignored) |
 | **Gate check** | a script or checklist that confirms each stage's artifact exists | this skill's `check-gates.sh`, or your repo's equivalent |
 
-Use your toolchain's equivalents for planning, TDD and agent orchestration: skills, subagents, worktrees and workflow runners where available, or plain sessions and branches where not.
+Use your harness's equivalents for planning, tests and delegation: skills, helper agents, worktrees and workflow runners where it has them. Where it does not, use the fallback in Harness capabilities. Plain sessions and branches are enough to run the whole pipeline.
+
+## Harness capabilities
+
+The procedure names the job, not a vendor's tool. Use the capability when the harness has it. Use the fallback when it does not. The step still happens.
+
+| Capability | When the harness has it | Fallback |
+|---|---|---|
+| **Checklist** | A todo or task list in the session | The same items as a checklist at the top of the decision log, ticked as you finish |
+| **Helper agent** | A fresh context you can hand a bounded task | Do that pass yourself, in a new session when this one is already long, and record that it was inline |
+| **Parallel work** | Isolated workspaces running at the same time, one checkout each | Run independent tracks one after another. Two writers never share a checkout or a git index |
+| **Model choice** | A way to pick the model | Design, security review, and the final review still happen, in a fresh context |
+| **Sources** | A way to open pages or files | Ask the user for the source, or record the claim as unverified. Do not invent a citation |
+| **Design surface** | A design canvas | A playable HTML page in the repo, checked in light and dark at real sizes |
+| **Background wait** | A signal when other work finishes | Check on a human cadence, not a tight loop. If a helper has gone quiet far longer than the task needs, stop it and restart only the unfinished part |
 
 ## Stage 1: declare the scale
 Assess the project and **recommend** a scale with one sentence of reasoning. The user has the final say. Record it in the decision log.
@@ -49,25 +67,25 @@ Move up a scale if uncertainty appears midway. Never move down past a gate that 
 
 | # | Stage | Artifact | Fast | Standard | Full |
 |---|---|---|---|---|---|
-| 0 | **Discover** | the idea, in the decision log | 1 question + the idea | goal questions (one at a time, plain chat) + an R&D sprint | + parallel research agents + stress-test the lead idea; stop agents on a pivot |
+| 0 | **Discover** | the idea, in the decision log | 1 question + the idea | goal questions (one at a time, plain chat) + an R&D sprint | + parallel research passes (helpers at once if you can, otherwise one after another) + stress-test the lead idea; stop the rest on a pivot |
 | 1 | **Frame + scale** | decision log | goal, done, scale | + constraints, out of scope for v1 | + platform, budget/plan limits, public vs personal |
 | 2 | **Research** | research folder | targeted notes | 4 tracks (features/logic, UI, reception and competitors, platform/SDK), claims sourced | + you verify ≥3 key claims yourself |
 | 3 | **Internals** | research folder | only the relevant unknowns | detailed behavior | exhaustive rundown + an indexed archive of the source documents; behavior only, never leaked or reconstructed code |
 | 4 | **Ground truth** | research folder | the evidence supplied | screenshot teardown | comprehensive teardown; text/accessibility reads first; ask for ONE specific screenshot, never bulk capture |
 | 5 | **Spec** | spec | concise requirements | numbered requirements with sources and mechanisms, labeled IDENTICAL / ADAPTED / DECISION NEEDED | + data model, limits, build order; the user settles every decision |
 | 6 | **Gap engineering** | spec § Original designs | decide inline | ORIGINAL designs for real unknowns | every unknown → a design with constants, real prompts, evals; the user's principles enforced in code |
-| 7 | **Mockup** | a design canvas | the key screen | baseline → user notes → multi-screen | complete interaction set, faithful to the reference when cloning; the user approves explicitly |
+| 7 | **Mockup** | a design canvas or a playable page | the key screen | baseline → user notes → multi-screen | complete interaction set, faithful to the reference when cloning; the user approves explicitly |
 | 8 | **Traceability** | traceability map | critical paths | all UI ↔ requirement ↔ phase | bidirectional and exhaustive; 0 MISSING |
 | 9 | **Phase 0** ★ | findings doc | real unknowns proven | real unknowns proven | real unknowns proven; each PASSes or has a fallback |
 | 10 | **QA tooling** ★ | a QA harness | a QA checklist + crawler | a project fuzz tool (crawler + journeys) | + self-tested against planted bugs, before any app code |
 | 11 | **Plan** | plans | short task list | a written implementation plan | + one plan per phase, written in chunks; grep-verify |
-| 12 | **Build** ★ | commits + build ledger | RED → GREEN | one fresh agent per task + per-task review + TDD | + pre-flight conflict scan, rulings in the ledger, fuzz gate (critical/high = 0) |
+| 12 | **Build** ★ | commits + build ledger | RED → GREEN | one fresh helper per task, or a clean pass, + per-task review + TDD | + pre-flight conflict scan, rulings in the ledger, fuzz gate (critical/high = 0) |
 | 13 | **Hand off + learn** | the draft + a skill edit | what works, what's stubbed | + every ruling made | + update THIS skill with general lessons |
 
 ★ = an invariant stage: its gate is the same at every scale.
 
 ## Start
-1. Create one todo per stage (0–13), with the stage titles verbatim.
+1. Create one checklist item per stage (0–13), with the stage titles verbatim. Use a task tool if you have one; otherwise write the checklist at the top of the decision log.
 2. Before closing a stage, run the gate check and read its result against the declared scale.
 3. **Decisions vs. memory:** project decisions go in the decision log, because the project's files are its source of truth. Assistant memory holds only cross-project, lasting preferences ("prefers monochrome UI," budget, how they like to be asked). Never project state.
 
@@ -121,7 +139,7 @@ Move up a scale if uncertainty appears midway. Never move down past a gate that 
 - **Audits that only measure contracts can't see "looks wrong."** Every CSS assertion can pass while a field renders crushed. Anything whose defect is visual needs rendered output that someone actually looks at
 - **Verify discovery against the real machine with every workaround removed.** A finder unit-tested with its own path assumption passes forever while the installer puts the thing somewhere else; one run against the real disk, no pinned settings, finds it in seconds
 - **Audit a benchmark's scorer before trusting its zeros, and pin every knob on both arms.** A keyword rule read "the old code couldn't handle X" as the agent giving up and hid a false "done"; one runner's effort level was left at its own default. Both made a revert blame the wrong change. Re-run the baseline without the change before attributing a regression to it
-- When you delegate a review, **ask it to prove your premise before building on it** — and treat a subagent refuting you as the system working. Premises handed down as fact are the most expensive kind of error, because everything downstream inherits them
+- When you delegate a review, **ask it to prove your premise before building on it** — and treat a helper or a fresh review that refutes you as the system working. Premises handed down as fact are the most expensive kind of error, because everything downstream inherits them
 
 **Security**
 - A fix to a safety gate (command review, permissions, path checks) gets its own security review on the most capable model, probing with dozens of bypass inputs (globs, variables, `~`, `..`, wrappers, comment injection). The implementer's own tests cover only the inputs it thought of

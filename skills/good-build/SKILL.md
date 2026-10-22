@@ -1,6 +1,10 @@
 ---
 name: good-build
 description: Use when the user asks for good-build (e.g. /good-build), or hands the agent an already-planned build (a spec, a design, or an implementation plan) and wants it implemented completely and correctly with tests, reviews and QA, whether small or large.
+license: MIT
+metadata:
+  author: nyfeblade
+  version: "1.2.0"
 ---
 
 # Good Build
@@ -13,6 +17,20 @@ Take a build that is already planned and implement it to done: every requirement
 2. **Nothing is done on an agent's word.** You re-run the tests, counts and one concrete claim yourself after every task and every merge.
 3. **The shipped thing passes QA** the way a user runs it, not only the unit suite.
 
+## Harness capabilities
+
+The procedure names the job, not a vendor's tool. Use the capability when the harness has it. Use the fallback when it does not. The step still happens.
+
+| Capability | When the harness has it | Fallback |
+|---|---|---|
+| **Checklist** | A todo or task list in the session | The same items as a checklist at the top of the build ledger, ticked as you finish |
+| **Helper agent** | A fresh context you can hand a bounded task | Do that pass yourself, in a new session when this one is already long, and record that it was inline |
+| **Parallel work** | Isolated workspaces running at the same time, one checkout each | Run independent tracks one after another. Two writers never share a checkout or a git index |
+| **Model choice** | A way to pick the model | Design, security review, and the final review still happen, in a fresh context |
+| **Sources** | A way to open pages or files | Ask the user for the source, or record the claim as unverified. Do not invent a citation |
+| **Design surface** | A design canvas | This skill does not invent the design. UI is judged on rendered output, in every theme and size |
+| **Background wait** | A signal when other work finishes | Check on a human cadence, not a tight loop. If a helper has gone quiet far longer than the task needs, stop it and restart only the unfinished part |
+
 ## Stage 0: intake (before any code)
 1. **Find the authority.** Start from the Handoff section at the end of the decision log if there is one (good-idea writes it: decisions, spec, traceability map, Phase 0 findings, mockup, plan). Otherwise locate the spec and the plan yourself. The spec wins over the plan; the plan wins over your preference. If there is no spec or plan, stop and say so, and offer `/good-idea` or a short written plan for approval.
 2. **Read the plan once, fully.** Note global constraints (versions, naming, copy rules, platform limits, "never" rules) and copy them verbatim into the ledger.
@@ -20,8 +38,8 @@ Take a build that is already planned and implement it to done: every requirement
 4. **Pick the size**, which sets how much ceremony each task gets. It never removes the invariants. If unsure, pick Medium; go Large only when the plan really has independent tracks.
    - **Small** (1–5 tasks, one area): implement inline, test first, one review at the end.
    - **Medium**: one fresh helper agent per task where your tool can run them (or a clean pass per task where it can't), a review after each task, one final review.
-   - **Large** (many tasks, independent tracks): run parallel tracks in isolated workspaces (e.g. git worktrees), with a review per track and one merge step. Without parallel agents, run the tracks one after another.
-5. **Check the machine.** Free disk, memory pressure, and what else is running. Cap heavy parallel agents to what the machine can carry.
+   - **Large** (many tasks, independent tracks): run parallel tracks in isolated workspaces (e.g. git worktrees), with a review per track and one merge step. Without parallel helpers, run the tracks one after another.
+5. **Check the machine.** Free disk, memory pressure, and what else is running. Cap heavy parallel helpers to what the machine can carry. With none, there is nothing to cap.
 6. **Create the ledger** (a git-ignored file, e.g. `.build-ledger.md`): the plan path, global constraints, the conflict table, rulings, and then one line per task as it completes. After any context loss, trust the ledger and `git log` over memory, and never redo a task the ledger marks complete.
 
 ## Stage 1: QA tooling first
@@ -42,8 +60,8 @@ For each task, in plan order (parallel only where the plan's dependency graph al
 3. **RED:** write the test, run it, and record the failure output. A test that passes before the change is not a RED test.
 4. **GREEN:** the minimal code that passes. Then run typecheck and the targeted tests.
 5. **Commit** on the task's branch with a message saying what and why.
-6. **Review:** give a fresh reviewer the diff from BASE as a file, never `HEAD~1`, plus the task text and constraints. It must return both verdicts, spec compliance and code quality.
-7. **Fix loop:** rounds 1–3 go back to the same implementer. Rounds 4–5 go to a fresh implementer, one model tier up where you can choose. Each round gets a scoped re-review. After 5 rounds, rule on each open finding: fix it, park it with a reason in the ledger, or stop only if every path forward is a guess.
+6. **Review:** give a fresh reviewer the diff from BASE as a file, never `HEAD~1`, plus the task text and constraints. It must return both verdicts, spec compliance and code quality. A fresh reviewer is another context that did not write the change. If you cannot start one, close the implementation notes and review that diff yourself, still returning both verdicts.
+7. **Fix loop:** rounds 1–3 go back to the same implementer. Rounds 4–5 go to a fresh implementer, one model tier up where you can choose. If you cannot start a fresh implementer, do rounds 4–5 in a new session that receives only the open findings. Each round gets a scoped re-review. After 5 rounds, rule on each open finding: fix it, park it with a reason in the ledger, or stop only if every path forward is a guess.
 8. **Verify it yourself:** re-run the tests, check the counts and one claim, then write the ledger line.
 
 ## Stage 3: integrate
@@ -75,7 +93,7 @@ Push or deploy only if the user authorised it. Record reusable lessons wherever 
 - Asking the user something the spec, the plan or a sensible default already answers
 
 ## Working rules for agent tools
-These apply wherever your tool has the feature; skip the ones it doesn't.
+Use these when the harness has the feature. The Harness capabilities section names the fallback, including doing the work inline and in order.
 - **Isolation.** Parallel agents each get their own workspace (a git worktree or a separate checkout). They never share a checkout, because one git index means `git add -A` commits the other agent's work. The stash stack is shared across worktrees, so agents never use `git stash`: they commit WIP to their own branch instead.
 - **Waiting.** If background agents tell you when they finish, don't poll them. While waiting, do local work (the ledger, the next brief, reading reports). If an agent has gone quiet far longer than its task needs, stop it and restart only the unfinished part.
 - **Hand over files, not pastes.** Briefs, diffs and reports go through files. Never paste accumulated history into a new brief.

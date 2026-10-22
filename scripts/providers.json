@@ -1,0 +1,283 @@
+{
+  "providers": [
+    {
+      "id": "agents",
+      "name": "Universal (.agents)",
+      "docs": "https://agentskills.io/specification",
+      "project": [".agents/skills"],
+      "user": [".agents/skills"],
+      "detect": {
+        "dirs": [".agents"],
+        "commands": [],
+        "project": [".agents"]
+      },
+      "notes": "Shared tree. Also read by Codex, Goose, OpenCode, Junie, Roo Code, Factory Droid, Cursor, Gemini CLI, Copilot, and Grok.",
+      "instructions": {
+        "project": [{ "kind": "agents", "path": "AGENTS.md" }]
+      }
+    },
+    {
+      "id": "claude",
+      "name": "Claude Code",
+      "docs": "https://code.claude.com/docs/en/skills",
+      "project": [".claude/skills"],
+      "user": [".claude/skills"],
+      "detect": {
+        "dirs": [".claude"],
+        "commands": ["claude"],
+        "project": [".claude"]
+      },
+      "notes": "Personal skills do not load in Cowork or Claude Code cloud sessions. A plugin install is also supported.",
+      "instructions": {
+        "user": [{ "kind": "claude", "path": ".claude/CLAUDE.md" }],
+        "project": [{ "kind": "claude", "path": "CLAUDE.md" }]
+      }
+    },
+    {
+      "id": "codex",
+      "name": "OpenAI Codex",
+      "docs": "https://learn.chatgpt.com/docs/customization/overview",
+      "project": [".agents/skills"],
+      "user": [".agents/skills"],
+      "detect": {
+        "dirs": [".codex"],
+        "commands": ["codex"],
+        "project": [".codex"]
+      },
+      "notes": "Current personal directory. Codex still reads legacy ~/.codex/skills; this installer does not write it.",
+      "instructions": {
+        "user": [{ "kind": "agents", "path": ".codex/AGENTS.md" }],
+        "project": [{ "kind": "agents", "path": "AGENTS.md" }]
+      }
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "docs": "https://cursor.com/docs/skills",
+      "project": [".cursor/skills"],
+      "user": [".cursor/skills"],
+      "detect": {
+        "dirs": [".cursor"],
+        "commands": ["cursor"],
+        "project": [".cursor"]
+      },
+      "notes": "Also loads .agents, .claude, and .codex skill trees. Cloud Agents need a skill committed in the repo.",
+      "instructions": {
+        "project": [
+          { "kind": "cursor", "path": ".cursor/rules" },
+          { "kind": "agents", "path": "AGENTS.md" }
+        ]
+      }
+    },
+    {
+      "id": "gemini",
+      "name": "Gemini CLI",
+      "docs": "https://geminicli.com/docs/cli/skills/",
+      "project": [".gemini/skills"],
+      "user": [".gemini/skills"],
+      "detect": {
+        "dirs": [".gemini"],
+        "commands": ["gemini"],
+        "project": [".gemini"]
+      },
+      "notes": "In one scope, .agents/skills wins over .gemini/skills. GEMINI.md is always-on context, not the skill.",
+      "instructions": {
+        "user": [{ "kind": "gemini", "path": ".gemini/GEMINI.md" }],
+        "project": [{ "kind": "gemini", "path": "GEMINI.md" }]
+      }
+    },
+    {
+      "id": "copilot",
+      "name": "GitHub Copilot",
+      "docs": "https://docs.github.com/en/copilot/how-tos/use-copilot-agents/cloud-agent/create-skills",
+      "project": [".github/skills"],
+      "user": [".copilot/skills"],
+      "detect": {
+        "dirs": [".copilot"],
+        "commands": ["copilot"],
+        "project": [".github/skills", ".github/copilot-instructions.md"]
+      },
+      "notes": "Also reads .agents/skills and .claude/skills. Copilot Chat on github.com does not load skills.",
+      "instructions": {
+        "project": [
+          { "kind": "copilot", "path": ".github/copilot-instructions.md" },
+          { "kind": "agents", "path": "AGENTS.md" }
+        ]
+      }
+    },
+    {
+      "id": "windsurf",
+      "name": "Windsurf / Devin Desktop",
+      "docs": "https://docs.windsurf.com/windsurf/cascade/skills",
+      "project": [".devin/skills", ".windsurf/skills"],
+      "user": [".config/devin/skills", ".codeium/windsurf/skills"],
+      "detect": {
+        "dirs": [".codeium/windsurf", ".config/devin"],
+        "commands": ["windsurf", "devin"],
+        "project": [".windsurf", ".devin"]
+      },
+      "notes": "Devin Desktop prefers .devin/skills and ~/.config/devin/skills. Legacy Windsurf paths are still read, and both are written.",
+      "instructions": {
+        "project": [{ "kind": "agents", "path": "AGENTS.md" }]
+      }
+    },
+    {
+      "id": "grok",
+      "name": "Grok",
+      "docs": "https://docs.x.ai/build/features/skills-plugins-marketplaces",
+      "project": [".grok/skills"],
+      "user": [".grok/skills"],
+      "detect": {
+        "dirs": [".grok"],
+        "commands": ["grok"],
+        "project": [".grok"]
+      },
+      "notes": "Grok Build reads this tree, plus .agents, .claude, and .cursor. Grok Bot's in-chat library is separate.",
+      "instructions": {
+        "project": [{ "kind": "agents", "path": "AGENTS.md" }]
+      }
+    },
+    {
+      "id": "antigravity",
+      "name": "Google Antigravity",
+      "docs": "https://antigravity.google/docs/skills/",
+      "project": [".agents/skills"],
+      "user": [".gemini/config/skills", ".gemini/antigravity-cli/skills"],
+      "detect": {
+        "dirs": [".gemini/antigravity", ".gemini/antigravity-cli"],
+        "commands": ["agy"],
+        "project": []
+      },
+      "notes": "App and IDE use the config directory. The CLI uses antigravity-cli. Legacy ~/.gemini/antigravity/skills is not written.",
+      "instructions": {}
+    },
+    {
+      "id": "cline",
+      "name": "Cline",
+      "docs": "https://docs.cline.bot/customization/skills",
+      "project": [".cline/skills"],
+      "user": [".cline/skills"],
+      "detect": {
+        "dirs": [".cline"],
+        "commands": [],
+        "project": [".cline"]
+      },
+      "notes": "Also reads .claude/skills. Enable Skills in settings. A personal skill overrides a project skill of the same name.",
+      "instructions": {}
+    },
+    {
+      "id": "continue",
+      "name": "Continue",
+      "docs": "https://github.com/continuedev/continue/pull/9353",
+      "project": [".continue/skills"],
+      "user": [".continue/skills"],
+      "detect": {
+        "dirs": [".continue"],
+        "commands": [],
+        "project": [".continue"]
+      },
+      "notes": "Also reads .claude/skills. The Continue CLI imports personal skills to ~/.continue/skills.",
+      "instructions": {}
+    },
+    {
+      "id": "factory",
+      "name": "Factory Droid",
+      "docs": "https://docs.factory.ai/harness/skills",
+      "project": [".factory/skills"],
+      "user": [".factory/skills"],
+      "detect": {
+        "dirs": [".factory"],
+        "commands": ["droid"],
+        "project": [".factory"]
+      },
+      "notes": "Also reads .agents/skills and .agent/skills.",
+      "instructions": {
+        "project": [{ "kind": "agents", "path": "AGENTS.md" }]
+      }
+    },
+    {
+      "id": "goose",
+      "name": "Goose",
+      "docs": "https://github.com/aaif-goose/goose/blob/main/documentation/docs/guides/context-engineering/using-skills.md",
+      "project": [".agents/skills"],
+      "user": [".agents/skills"],
+      "detect": {
+        "dirs": [".config/goose"],
+        "commands": ["goose"],
+        "project": [".goose"]
+      },
+      "notes": "Same directory as the universal install. Legacy ~/.config/goose/skills is not written.",
+      "instructions": {}
+    },
+    {
+      "id": "junie",
+      "name": "Junie",
+      "docs": "https://junie.jetbrains.com/docs/agent-skills.html",
+      "project": [".junie/skills"],
+      "user": [".junie/skills"],
+      "detect": {
+        "dirs": [".junie"],
+        "commands": ["junie"],
+        "project": [".junie"]
+      },
+      "notes": "Also reads .agents/skills. A project skill wins over a personal skill of the same name.",
+      "instructions": {}
+    },
+    {
+      "id": "kiro",
+      "name": "Kiro",
+      "docs": "https://kiro.dev/docs/skills/",
+      "project": [".kiro/skills"],
+      "user": [".kiro/skills"],
+      "detect": {
+        "dirs": [".kiro"],
+        "commands": ["kiro"],
+        "project": [".kiro"]
+      },
+      "notes": "Custom agents load skills only when their resources list includes them. Web and mobile do not load personal skills.",
+      "instructions": {}
+    },
+    {
+      "id": "opencode",
+      "name": "OpenCode",
+      "docs": "https://opencode.ai/docs/skills/",
+      "project": [".opencode/skills"],
+      "user": [".config/opencode/skills"],
+      "detect": {
+        "dirs": [".config/opencode"],
+        "commands": ["opencode"],
+        "project": [".opencode"]
+      },
+      "notes": "Also reads .agents/skills and .claude/skills.",
+      "instructions": {}
+    },
+    {
+      "id": "qwen",
+      "name": "Qwen Code",
+      "docs": "https://qwenlm.github.io/qwen-code-docs/en/users/features/skills/",
+      "project": [".qwen/skills"],
+      "user": [".qwen/skills"],
+      "detect": {
+        "dirs": [".qwen"],
+        "commands": ["qwen"],
+        "project": [".qwen"]
+      },
+      "notes": "Personal and project skill directories, plus skills bundled by a Qwen extension. This installer uses the directories.",
+      "instructions": {}
+    },
+    {
+      "id": "roo",
+      "name": "Roo Code",
+      "docs": "https://docs.roocode.com/advanced-usage/available-tools/skill",
+      "project": [".roo/skills"],
+      "user": [".roo/skills"],
+      "detect": {
+        "dirs": [".roo"],
+        "commands": [],
+        "project": [".roo"]
+      },
+      "notes": "Also reads .agents/skills. A project skill overrides a personal skill of the same name.",
+      "instructions": {}
+    }
+  ]
+}

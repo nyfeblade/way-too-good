@@ -1,6 +1,10 @@
 ---
 name: good-idea
 description: Use when the user asks for good-idea (e.g. /good-idea), wants help deciding what to build, or wants an idea or a product to clone researched, specced, mocked up and proven before any building starts, especially when uncertainty, unknown internals, or cost of rework is high.
+license: MIT
+metadata:
+  author: nyfeblade
+  version: "1.2.0"
 ---
 
 # Good Idea
@@ -25,6 +29,20 @@ Name artifacts by role, and record the concrete locations in the decision log at
 
 Project decisions go in the decision log. Assistant memory holds only lasting, cross-project preferences, never project state.
 
+## Harness capabilities
+
+The procedure names the job, not a vendor's tool. Use the capability when the harness has it. Use the fallback when it does not. The step still happens.
+
+| Capability | When the harness has it | Fallback |
+|---|---|---|
+| **Checklist** | A todo or task list in the session | The same items as a checklist at the top of the decision log, ticked as you finish |
+| **Helper agent** | A fresh context you can hand a bounded task | Do that pass yourself, in a new session when this one is already long, and record that it was inline |
+| **Parallel work** | Isolated workspaces running at the same time, one checkout each | Run independent tracks one after another. Two writers never share a checkout or a git index |
+| **Model choice** | A way to pick the model | Design, security review, and the final review still happen, in a fresh context |
+| **Sources** | A way to open pages or files | Ask the user for the source, or record the claim as unverified. Do not invent a citation |
+| **Design surface** | A design canvas | A playable HTML page in the repo, checked in light and dark at real sizes |
+| **Background wait** | A signal when other work finishes | Check on a human cadence, not a tight loop. If a helper has gone quiet far longer than the task needs, stop it and restart only the unfinished part |
+
 ## Stage 1: declare the scale
 Recommend a scale in one sentence; the user has the final say. Record it.
 
@@ -42,7 +60,7 @@ Move up if uncertainty appears midway. Never move down past a gate that has alre
 
 | # | Stage | Artifact | Fast | Standard | Full |
 |---|---|---|---|---|---|
-| 0 | **Discover** | the idea, in the decision log | 1 question + the idea | goal questions (one at a time, plain chat) + a short R&D sprint | + parallel research agents + stress-test the lead idea; stop agents on a pivot |
+| 0 | **Discover** | the idea, in the decision log | 1 question + the idea | goal questions (one at a time, plain chat) + a short R&D sprint | + parallel research passes (helpers at once if you can, otherwise one after another) + stress-test the lead idea; stop the rest on a pivot |
 | 1 | **Frame + scale** | decision log | goal, what "done" means, scale | + constraints, out of scope for v1 | + platform, budget/plan limits, public vs personal |
 | 2 | **Research** | research folder | targeted notes | 4 tracks (features/logic, UI, reception and competitors, platform/SDK), claims sourced | + verify ≥3 key claims yourself |
 | 3 | **Internals** | research folder | only the relevant unknowns | detailed behaviour | exhaustive rundown + an indexed source archive; behaviour only, never leaked or reconstructed code |
@@ -72,7 +90,7 @@ good-idea finishes by writing a **Handoff** section at the end of the decision l
 Other locations are fine; the Handoff section is what says where they are.
 
 ## Start
-1. Create one todo per stage (0–9), with the titles verbatim.
+1. Create one checklist item per stage (0–9), with the titles verbatim. Use a task tool if you have one; otherwise write the checklist at the top of the decision log.
 2. Before closing a stage, confirm its artifact exists and read it against the declared scale.
 
 ## Red flags: stop and go back
